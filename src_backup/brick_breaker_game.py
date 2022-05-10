@@ -1,5 +1,5 @@
 from utils import GameBase
-from game_screen import GameScreen
+from loading_screen import LoadingScreen
 from score_controller import ScoreController
 
 
@@ -10,4 +10,4 @@ class BrickBreakerGame(GameBase):
 
     def post_create(self):
         self.score_controller = ScoreController()
-        self.set_screen(GameScreen(self))
+        self.set_screen(LoadingScreen(self))

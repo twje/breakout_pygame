@@ -44,9 +44,7 @@ class LoadingScreenBase(Screen):
             self.hud_height,
             self.camera
         )
-        self.renderer = ShapeRenderer()
-
-        # Asset descriptors (think about)
+        self.renderer = ShapeRenderer()        
 
     def resize(self, width, height):
         self.viewport.update(width, height)
@@ -72,16 +70,16 @@ class LoadingScreenBase(Screen):
     # Hooks
     # -----
     def get_hud_width(self):
-        pass
+        return self.DEFAULT_HUD_WIDTH
 
     def get_hud_height(self):
-        pass
+        return self.DEFAULT_HUD_HEIGHT
 
-    def get_progress_bar_width():
-        pass
+    def get_progress_bar_width(self):
+        return self.get_hud_width()/2
 
-    def get_progress_bar_height():
-        pass
+    def get_progress_bar_height(self):
+        return self.DEFAULT_PROGRESS_BAR_HEIGHT
 
     def on_load_done(self):
         pass
@@ -90,13 +88,13 @@ class LoadingScreenBase(Screen):
     # Private Methods
     # ---------------
     def _update(self, delta):
-        self.progress = self.asset_manager.get_progress()
+        # self.progress = self.asset_manager.get_progress()
 
-        if self.asset_manager.update():
-            self.wait_time -= delta
+        # if self.asset_manager.update():
+        #     self.wait_time -= delta
 
-            if self.wait_time <= 0:
-                self.change_screen = True
+        #     if self.wait_time <= 0:
+        self.change_screen = True
 
     def _draw(self):
         pass

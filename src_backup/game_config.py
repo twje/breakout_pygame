@@ -4,8 +4,11 @@ from tkinter.tix import COLUMN
 
 CAPTION = "Brick Breaker"
 
-WIDTH = 1024     # pixels
+WIDTH = 1024    # pixels
 HEIGHT = 768    # pixels
+
+HUD_WIDTH = 1024    # world units
+HUD_HEIGHT = 768    # world units
 
 WORLD_WIDTH = 32    # world units
 WORLD_HEIGHT = 24   # world units

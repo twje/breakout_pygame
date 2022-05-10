@@ -14,9 +14,11 @@ class GameScreen(Screen):
         self.controller = None
         self.renderer = None
 
+        self.game.resize(self.game.window.width, self.game.window.height)
+
     def show(self):
         self.controller = GameController(self.score_controller)
-        self.renderer = GameRenderer(self.controller, self.batch, self.asset_manager)
+        self.renderer = GameRenderer(self.controller, self.batch, self.asset_manager)        
 
     def handle_event(self, event):
         self.controller.handle_event(event)

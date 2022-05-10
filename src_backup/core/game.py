@@ -8,6 +8,7 @@ class Game:
     def set_screen(self, screen):
         self.screen = screen
         self.screen.show()
+        self.screen.resize(self.window.width, self.window.height)
 
     def handle_event(self, event):
         if event.type == VIDEORESIZE:
