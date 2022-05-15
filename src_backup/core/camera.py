@@ -10,5 +10,6 @@ class Camera:
 
     def combined(self):
         half_world = Vector2(self.world_width/2, -self.world_height/2)
-        offset = half_world - Vector2(self.position.x, -self.position.y) 
+        offset = half_world - Vector2(self.position.x, -self.position.y)
+        print(self.position)
         return offset, self.ppu

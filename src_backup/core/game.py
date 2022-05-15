@@ -1,3 +1,4 @@
+import pygame
 from pygame.locals import *
 
 
@@ -8,7 +9,8 @@ class Game:
     def set_screen(self, screen):
         self.screen = screen
         self.screen.show()
-        self.screen.resize(self.window.width, self.window.height)
+        surface = pygame.display.get_surface()
+        self.screen.resize(surface.get_width(), surface.get_height())
 
     def handle_event(self, event):
         if event.type == VIDEORESIZE:
