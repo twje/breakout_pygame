@@ -2,7 +2,7 @@ import pygame
 
 
 class Window:
-    def __init__(self, caption, width, height, event_callback):
+    def __init__(self, application, caption, width, height):
         pygame.init()
         pygame.display.set_caption(caption)
         self.screen = pygame.display.set_mode(
@@ -10,11 +10,9 @@ class Window:
             pygame.RESIZABLE,
             32
         )
-        self.event_callback = event_callback
+        self.application = application
         self.is_done = False
-        self.is_focused = True
-        self.is_maximized = True
-        self.has_drawing_surface_state_changed = False
+        self.prv_event = None
 
     @property
     def width(self):
@@ -24,28 +22,32 @@ class Window:
     def height(self):
         return self.screen.get_height()
 
+    def was_window_minimized(self):
+        if self.prv_event is None:
+            return False
+        return self.prv_event.type == pygame.WINDOWMINIMIZED
+
     def destroy(self):
         pygame.quit()
 
     def update(self):
-        self.has_drawing_surface_state_changed = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.is_done = True
-            elif event.type == pygame.WINDOWFOCUSLOST:
-                self.is_focused = False
-                self.has_drawing_surface_state_changed = True
-            elif event.type == pygame.WINDOWFOCUSGAINED:
-                self.is_focused = True
-                self.has_drawing_surface_state_changed = True
             elif event.type == pygame.WINDOWMAXIMIZED:
-                self.is_maximized == True
-                self.has_drawing_surface_state_changed = True
+                self.application.maximized()
+                self.prv_event = event
             elif event.type == pygame.WINDOWMINIMIZED:
-                self.is_maximized = False
-                self.has_drawing_surface_state_changed = True
-            else:
-                self.event_callback(event)
+                self.application.minimized()
+                self.prv_event = event
+            elif event.type == pygame.WINDOWRESTORED:
+                self.application.restored(self.was_window_minimized())
+                self.prv_event = event
+            elif event.type == pygame.WINDOWRESIZED:
+                self.application.resized()
+                self.prv_event = event
+
+            self.application.handle_event(event)
 
     def begin_render(self):
         self.screen.fill((68, 85, 90))

@@ -11,7 +11,7 @@ class ApplicationListener:
     def render(self, delta):
         pass
 
-    def resize(self):
+    def resize(self, width, height):
         pass
 
     def resume(self):
